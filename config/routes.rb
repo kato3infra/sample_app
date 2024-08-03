@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   get 'lists/new'
   post 'lists' => 'lists#create'   #ここを追記します
-  get 'lists/index'
+  get 'lists' => 'lists#index'
   get 'lists/show'
   get 'lists/edit'
-  get 'top', to: 'homes#top'
+  get 'top' => 'homes#top'
+  # .../lists/1 や .../lists/3 に該当する
+  get 'lists/:id' => 'lists#show', as: 'list'
 end
