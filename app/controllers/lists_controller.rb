@@ -3,13 +3,15 @@ class ListsController < ApplicationController
     @list = List.new
   end
 
-  # 以下を追加
   def create
-    # １.&2. データを受け取り新規登録するためのインスタンス作成
-    list = List.new(list_params)
-    # 3. データをデータベースに保存するためのsaveメソッド実行
-    list.save
-    redirect_to list_path(list.id)
+    @list = List.new(list_params)
+    if @list.save
+      flash[:notice] = "投稿に成功しました。"
+      redirect_to list_path(@list.id)
+    else
+      flash.now[:alert] = "投稿に失敗しました。" #キーをalertに変更
+      render :new
+    end
   end
 
   def index
